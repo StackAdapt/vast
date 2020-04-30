@@ -36,7 +36,10 @@ module VAST
         return false
       end
       xsd = Nokogiri::XML::Schema(File.read(xsd_file))
-      xsd.valid?(self)
+      doc = Nokogiri.XML(self.to_s) do |config|
+        config.nocdata
+      end
+      xsd.validate(doc).empty?
     end
     
     # A single VAST response may include multiple Ads from multiple advertisers. It will be up to the 
