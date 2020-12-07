@@ -1,11 +1,12 @@
 require 'test_helper'
+require 'addressable/uri'
 
 class MediafileTest < Test::Unit::TestCase  
   def test_should_know_attributes
     document_file = example_file('document_with_one_inline_ad.xml')
     document = VAST::Document.parse!(document_file)
     mediafile = VAST::Mediafile.new(document.at('MediaFile'))
-    
+
     assert_equal "http://cdnp.tremormedia.com/video/acudeo/Carrot_400x300_500kb.flv", mediafile.url.to_s
     assert_equal "firstFile", mediafile.id
     assert_equal "progressive", mediafile.delivery

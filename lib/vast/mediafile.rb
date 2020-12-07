@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 module VAST
   # Any number of Mediafile objects can be provided for a single Ad, but it is assumed that all Mediafiles belongs
   # to a single Ad object represent the same creative unit with the same  duration, Ad-ID (ISCI code), etc.
@@ -5,7 +7,7 @@ module VAST
     
     # Location of linear file
     def url
-      URI.parse source_node.content.strip
+      Addressable::URI.parse(Addressable::URI.encode(source_node.content.strip))
     end
     
     def id
