@@ -15,7 +15,9 @@ module VAST
     
     # URI to open as destination page when user clicks on the video
     def click_through_url
-      URI.parse source_node.at('ClickThrough').content.strip
+      source_node.xpath('.//ClickThrough').to_a.collect do |node|
+        URI.parse node.content.strip
+      end.first || ''
     end
     
     # An array of URIs to request for tracking purposes when user clicks on the video
